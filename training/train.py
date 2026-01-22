@@ -60,7 +60,7 @@ if Y.isna().any(): # if any label is NaN, raise an error
 X_train, X_test, Y_train, Y_test = train_test_split(
     X,
     Y,
-    test_size=0.1, # 10% of data for testing
+    test_size=0.05, # 5% of data for testing
     random_state=67, # random seed (for reproducibility)
     stratify=Y, # ensures that the training and testing sets have the same distribution of labels
 )

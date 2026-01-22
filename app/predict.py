@@ -38,9 +38,10 @@ def predict(messages):
     model = load_model()
     preds = model.predict(messages) # 0 for ham, 1 for spam
     probs = model.predict_proba(messages) # 2 columns: [prob of ham, prob of spam]
+    print("Note: Percentages show relative contributions of words to the model's decision, not absolute probability which is why they dont add up to the confidence score.")
     for msg, pred, prob in zip(messages, preds, probs):
-        print("\nText:", msg)
-        print("Prediction:", "SPAM" if pred == 1 else "NOT SPAM")
-        print("Confidence:", max(prob)*100)
+        print(f'\n\n"{msg}"')
+        print("\nPrediction:", "SPAM" if pred == 1 else "NOT SPAM")
+        print(f"Confidence: {max(prob) * 100:.3f}%")
         print("\nWhy?")
         explain(model, msg)
