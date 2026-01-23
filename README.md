@@ -66,7 +66,7 @@ Why? (Percentages show relative contributions of words to the model's decision, 
 • "phone" increased spam likelihood by 20.01%
 ```
 
-## Project structure/layout
+## Project Layout
 
 ``` bash
 ML-Spam-Detector/
@@ -80,8 +80,8 @@ ML-Spam-Detector/
 │   ├── evaluate.py         # Example batch predictions using the saved model
 │   └── predict.py          # CLI prediction + explanation helpers
 ├── utils/                  # CLI utilities
-│   ├── call_api.py         # Simple interactive API client.
-│   └── call_api_pretty.py  # Pretty-printed interactive API client.
+│   ├── call_api.py         # Simple interactive API CLI client.
+│   └── call_api_pretty.py  # Pretty-printed interactive API CLI client.
 ├── tests/                  # Pytest test suite for API, model loading, and predictions
 │   ├── test_api.py
 │   ├── test_model.py
@@ -96,7 +96,7 @@ ML-Spam-Detector/
 ```
 
 
-## Try it
+## Try it!!
 
 ### 1. Setup virtual environment
 
@@ -133,7 +133,7 @@ Response fields:
 - `message`: original input
 - `prediction`: `spam` or `not_spam`
 - `confidence`: percentage probability
-- `explanation`: top contributing words
+- `explanation`: top contributing words and their impact
 
 ### 4. Test the API from the CLI
 
@@ -149,9 +149,12 @@ Or the pretty-printed variant:
 python utils/call_api_pretty.py
 ```
 
+Type messages directly into the terminal to see predictions and explanations.
+Note: Example responses for both variants were shown above.
+
 ## Running tests
 
-To try out the Pytests, run:
+To try out the pytests, run:
 ```bash
 pytest
 ```
