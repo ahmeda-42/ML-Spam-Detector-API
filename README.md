@@ -75,7 +75,7 @@ ML-Spam-Detector/
 │   ├── model.py            # Model loading logic
 │   ├── predict.py          # Prediction + explanation helpers
 │   └── schemas.py          # Pydantic request/response models
-├── training/               # ML training & evaluation
+├── model/                  # ML model training & evaluation
 │   ├── train.py            # Downloads dataset, trains/saves TF-IDF + Logistic Regression model
 │   ├── evaluate.py         # Example batch predictions using the saved model
 │   └── predict.py          # CLI prediction + explanation helpers
@@ -126,7 +126,7 @@ pip install -r requirements.txt
 ### 2. Train the model
 
 ```bash
-python training/train.py
+python model/train.py
 ```
 This downloads the dataset to `data/SMSSpamCollection` (if missing), trains the
 model, prints metrics, and saves the artifact to `artifacts/model.joblib`.

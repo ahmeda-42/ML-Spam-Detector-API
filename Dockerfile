@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app ./app
 COPY artifacts ./artifacts
 COPY tests ./tests
-COPY training ./training
+COPY model ./model
 COPY utils ./utils
 
 EXPOSE 8000
