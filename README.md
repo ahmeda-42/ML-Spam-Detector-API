@@ -30,14 +30,13 @@ Dockerized:
 
 ## Example Output
 
-```bash
+```md
 "free phone now"
 
 Prediction: SPAM
 Confidence: 52.515%
 
-Why? (Percentages show relative contributions of words to 
-the model's decision, not absolute probability)
+Why? (Percentages show relative contributions of words to the model's decision, not absolute probability)
 • "free" increased spam likelihood by 79.99%
 • "phone" increased spam likelihood by 20.01%
 ```
@@ -127,6 +126,7 @@ python utils/call_api_pretty.py
 
 ## Running tests
 
+To try out the Pytests, run:
 ```bash
 pytest
 ```
