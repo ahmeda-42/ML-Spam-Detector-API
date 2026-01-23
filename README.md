@@ -1,10 +1,72 @@
-# ML Spam Detector (SMS Spam Collection)
+# ML Spam Detector with Explainability (SMS Spam Collection)
 
-This project trains a simple spam detector using the UCI SMS Spam Collection
-dataset. It downloads the dataset automatically, trains a TF-IDF + Naive Bayes
-model, and saves it for later predictions.
+A machine learning system that classifies/detects SMS spam messages, expose predictions in a JSON via a FastAPI service, and explains why the model made each decision using interpretable feature contributions. You can interact with the API from simple CLI utilities. 
+The model uses logistic regression (scikit-learn) and is TF-IDF vectorizes. It is trained on the UCI SMS Spam Collection dataset and is saved as `artifacts/model.joblib`.
 
-## Setup
+## Features
+Spam classification using:
+- TF-IDF vectorization
+- Logistic Regression (scikit-learn)
+Model explainability:
+- Shows which words influenced the prediction
+- Percent-based contribution for interpretability
+FastAPI backend:
+- /predict endpoint for real-time inference
+Human-friendly CLI client:
+- Pretty-printed predictions and explanations
+Pytest test suite:
+- Model tests
+- Prediction logic tests
+- API endpoint tests
+Dockerized:
+- One-command containerized deployment
+
+## Example Output
+
+```bash
+"free phone now"
+
+Prediction: SPAM
+Confidence: 52.515%
+
+Why? (Percentages show relative contributions of words to the model's decision, not absolute probability)
+• "free" increased spam likelihood by 79.99%
+• "phone" increased spam likelihood by 20.01%
+```
+
+## Project structure/layout
+
+``` bash
+ML-Spam-Detector/
+├── app/                    # FastAPI application
+│   ├── main.py             # API entry point with `/predict` endpoint
+│   ├── model.py            # Model loading logic
+│   ├── predict.py          # Prediction + explanation helpers
+│   └── schemas.py          # Pydantic request/response models
+├── training/               # ML training & evaluation
+│   ├── train.py            # Downloads dataset, trains TF-IDF + Logistic Regression, evaluates, and saves the model
+│   ├── evaluate.py         # Example batch predictions using the saved model
+│   └── predict.py          # CLI prediction + explanation helpers
+├── utils/                  # CLI utilities
+│   ├── call_api.py         # Simple interactive API client.
+│   └── call_api_pretty.py  # Pretty-printed interactive API client.
+├── tests/                  # Pytest test suite for API, model loading, and predictions
+│   ├── test_api.py
+│   ├── test_model.py
+│   └── test_predict.py
+├── artifacts/              # Containes saved model
+│   └── model.joblib
+├── data/                   # Containes UCI SMS Spam Collection dataset
+│   └── SMSSpamCollection
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
+
+
+## Try it
+
+### 1. Setup virtual environment
 
 ```bash
 python3 -m venv .venv
@@ -12,22 +74,67 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Train the model
+
+### 2. Train the model
 
 ```bash
-python spam_detector.py train
+python training/train.py
+```
+This downloads the dataset to `data/SMSSpamCollection` (if missing), trains the
+model, prints metrics, and saves the artifact to `artifacts/model.joblib`.
+
+### 3. Run the API
+
+```bash
+uvicorn app.main:app --reload
 ```
 
-You can customize where data and model artifacts are stored:
+Example request:
 
 ```bash
-python spam_detector.py train --data-dir data --model-path models/spam_detector.joblib
+curl -X POST http://127.0.0.1:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Free entry in 2 a wkly comp"}'
 ```
 
-## Predict new messages
+Response fields:
+- `message`: original input
+- `prediction`: `spam` or `not_spam`
+- `confidence`: percentage probability
+- `explanation`: top contributing words
+
+### 4. Test the API from the CLI
+
+After starting the API, in a seperate terminal run:
 
 ```bash
-python spam_detector.py predict "Free entry in 2 a wkly comp" "Hey, are we still on for lunch?"
+python utils/call_api.py
+```
+
+Or the pretty-printed variant:
+
+```bash
+python utils/call_api_pretty.py
+```
+
+## Running tests
+
+```bash
+pytest
+```
+Tests cover:
+- Model loading
+- Prediction correctness
+- API endpoint behavior
+
+## Local prediction helpers
+
+Run the evaluation script from the `training` directory (it imports
+`training/predict.py` directly):
+
+```bash
+cd training
+python evaluate.py
 ```
 
 ## Docker
@@ -43,16 +150,3 @@ Run the API container:
 ```bash
 docker run --rm -p 8000:8000 ml-spam-detector
 ```
-
-Test the API:
-
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Free entry in 2 a wkly comp"}'
-```
-
-## Notes
-
-- The dataset is downloaded from UCI the first time you train.
-- The model is saved with `joblib` and can be reused for predictions.
