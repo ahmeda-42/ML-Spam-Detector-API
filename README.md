@@ -1,7 +1,8 @@
-# ML Spam Detector with Explainability (SMS Spam Collection)
+# ML Spam Detector with Explainability
 
-A machine learning system that classifies/detects SMS spam messages, expose predictions in a JSON via a FastAPI service, and explains why the model made each decision using interpretable feature contributions. You can interact with the API from simple CLI utilities. 
-The model uses logistic regression (scikit-learn) and is TF-IDF vectorizes. It is trained on the UCI SMS Spam Collection dataset and is saved as `artifacts/model.joblib`.
+A machine learning system that classifies/detects SMS spam messages, exposes predictions via a FastAPI JSON API, and explains why the model made each decision using interpretable feature contributions. You can interact with the API from simple CLI utilities. 
+
+The model uses TF-IDF vectorization with logistic regression (scikit-learn). It is trained on the UCI SMS Spam Collection dataset and is saved as `artifacts/model.joblib`.
 
 ## Features
 
