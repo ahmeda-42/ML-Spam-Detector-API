@@ -95,6 +95,22 @@ ML-Spam-Detector/
 └── README.md
 ```
 
+## Tech Stack
+
+Machine Learning
+- scikit-learn
+- TF-IDF Vectorizer
+- Logistic Regression
+
+Backend
+- FastAPI
+- Pydantic
+- Uvicorn
+
+DevOps / SWE
+- Docker
+- Pytest
+- Requests
 
 ## Try it!!
 
@@ -177,20 +193,3 @@ Run the API container:
 ```bash
 docker run --rm -p 8000:8000 ml-spam-detector
 ```
-
-## Tech Stack
-
-Machine Learning
-- scikit-learn
-- TF-IDF Vectorizer
-- Logistic Regression
-
-Backend
-- FastAPI
-- Pydantic
-- Uvicorn
-
-DevOps / SWE
-- Docker
-- Pytest
-- Requests
