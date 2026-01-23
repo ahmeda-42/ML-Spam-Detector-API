@@ -1,4 +1,4 @@
-# ML Spam Detector with Explainability
+# ML Spam Detector API with Explainability
 
 A machine learning system that classifies/detects SMS spam messages, exposes predictions via a FastAPI JSON API, and explains why the model made each decision using interpretable feature contributions. You can interact with the API from simple CLI utilities. 
 
