@@ -2,7 +2,14 @@ import joblib
 import numpy as np
 from pathlib import Path
 
-def predict(model, message):
+def load_model():
+    model_path = Path("artifacts/model.joblib")
+    if not model_path.exists():
+        raise FileNotFoundError(f"Model file not found: {model_path}")
+    return joblib.load(model_path)
+
+def predict(message):
+    model = load_model()
     preds = model.predict([message]) # 0 for ham, 1 for spam
     probs = model.predict_proba([message]) # 2 columns: [prob of ham, prob of spam]
     return {
@@ -11,7 +18,8 @@ def predict(model, message):
         "confidence": round(max(probs[0]) * 100, 3),
     }
 
-def predict_and_explain(model, message, top_k: int = 5):
+def predict_and_explain(message, top_k: int = 5):
+    model = load_model()
     preds = model.predict([message]) # 0 for ham, 1 for spam
     probs = model.predict_proba([message]) # 2 columns: [prob of ham, prob of spam]
     return {
