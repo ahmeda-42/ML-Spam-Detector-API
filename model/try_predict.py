@@ -1,4 +1,3 @@
-from pathlib import Path
 from predict import predict, predict_and_explain
 
 MESSAGES = [
