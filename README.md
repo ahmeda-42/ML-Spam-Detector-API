@@ -72,13 +72,12 @@ Why? (Percentages show relative contributions of words to the model's decision, 
 ML-Spam-Detector/
 ├── app/                    # FastAPI application
 │   ├── main.py             # API entry point with `/predict` endpoint
-│   ├── predict.py          # Prediction + explanation helpers
 │   └── schemas.py          # Pydantic request/response models
 ├── model/                  # ML model training & evaluation
 │   ├── dataset.py          # Dataset download + loading helpers
 │   ├── train.py            # Trains/saves TF-IDF + Logistic Regression model
 │   ├── evaluate.py         # Evaluates the saved model on the test split
-│   ├── predict.py          # CLI prediction + explanation helpers
+│   ├── predict.py          # Prediction + explanation helpers
 │   └── try_predict.py      # Example batch predictions using the saved model
 ├── utils/                  # CLI utilities
 │   ├── call_api.py         # Simple interactive API CLI client.

@@ -1,6 +1,6 @@
+import joblib
 import numpy as np
 from pathlib import Path
-import joblib
 
 def load_model():
     model_path = Path("artifacts/model.joblib")
@@ -8,26 +8,26 @@ def load_model():
         raise FileNotFoundError(f"Model file not found: {model_path}")
     return joblib.load(model_path)
 
-def predict(messages):
+def predict(message):
     model = load_model()
-    preds = model.predict(messages) # 0 for ham, 1 for spam
-    probs = model.predict_proba(messages) # 2 columns: [prob of ham, prob of spam]
-    for msg, pred, prob in zip(messages, preds, probs):
-        print(f'\n"{msg}"')
-        print("\nPrediction:", "SPAM" if pred == 1 else "NOT SPAM")
-        print(f"Confidence: {max(prob) * 100:.3f}%")
-        print("\n" + "="*50)
+    preds = model.predict([message]) # 0 for ham, 1 for spam
+    probs = model.predict_proba([message]) # 2 columns: [prob of ham, prob of spam]
+    return {
+        "message": message,
+        "prediction": "spam" if preds[0] == 1 else "not_spam",
+        "confidence": round(max(probs[0]) * 100, 3),
+    }
 
-def predict_and_explain(messages, top_k: int = 5):
+def predict_and_explain(message, top_k: int = 5):
     model = load_model()
-    preds = model.predict(messages) # 0 for ham, 1 for spam
-    probs = model.predict_proba(messages) # 2 columns: [prob of ham, prob of spam]
-    for msg, pred, prob in zip(messages, preds, probs):
-        print(f'\n"{msg}"')
-        print("\nPrediction:", "SPAM" if pred == 1 else "NOT SPAM")
-        print(f"Confidence: {max(prob) * 100:.3f}%")
-        explain(model, msg, top_k)
-        print("\n" + "="*50)
+    preds = model.predict([message]) # 0 for ham, 1 for spam
+    probs = model.predict_proba([message]) # 2 columns: [prob of ham, prob of spam]
+    return {
+        "message": message,
+        "prediction": "spam" if preds[0] == 1 else "not_spam",
+        "confidence": round(max(probs[0]) * 100, 3),
+        "explanation": explain(model, message, top_k),
+    }
 
 def explain(model, msg, top_k: int = 5):
     vectorizer = model.named_steps["tfidf"]
@@ -47,10 +47,11 @@ def explain(model, msg, top_k: int = 5):
     
     total_contribution = np.sum(np.abs(contributions[sorted_indices])) or 1.0
     
-    print("\nWhy? (Percentages show relative contributions of words to the model's decision, not absolute probability)")
+    explanation = []
     for i in sorted_indices[:top_k]:
-        word = feature_names[i]
-        value = contributions[i]
-        direction = "increased spam likelihood" if value > 0 else "decreased spam likelihood"
-        percent = (abs(value) / total_contribution) * 100
-        print(f'• "{word}" {direction} by {percent:.2f}%')
+        explanation.append({
+            "word": feature_names[i],
+            "direction": "spam" if contributions[i] > 0 else "not_spam",
+            "percent": round((abs(contributions[i]) / total_contribution) * 100, 2),
+        })
+    return explanation
