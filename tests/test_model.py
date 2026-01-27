@@ -1,13 +1,9 @@
-from pathlib import Path
 import pytest
-from app.model import load_model
-import joblib
-
-MODEL_PATH = Path("artifacts/model.joblib")
+from model.load_model import MODEL_PATH, load_model
 
 @pytest.mark.skipif(not MODEL_PATH.exists(), reason="Model artifact missing.")
 def test_model_loads():
-    model = joblib.load(MODEL_PATH)
+    model = load_model()
     assert model is not None
 
 @pytest.mark.skipif(not MODEL_PATH.exists(), reason="Model artifact missing.")

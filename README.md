@@ -76,6 +76,7 @@ ML-Spam-Detector/
 ├── model/                  # ML model training & evaluation
 │   ├── dataset.py          # Dataset download + loading helpers
 │   ├── train.py            # Trains/saves TF-IDF + Logistic Regression model
+│   ├── load_model.py       # Helper function to load the model
 │   ├── evaluate.py         # Evaluates the saved model on the test split
 │   ├── predict.py          # Prediction + explanation helpers
 │   └── try_predict.py      # Example batch predictions using the saved model

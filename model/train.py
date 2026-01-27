@@ -7,6 +7,7 @@ from sklearn.pipeline import Pipeline
 import joblib
 from dataset import download_dataset, load_dataset
 
+
 def main():
     # Download dataset and get the path
     dataset_path = download_dataset()

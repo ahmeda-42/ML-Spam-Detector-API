@@ -1,10 +1,7 @@
-from pathlib import Path
 import pytest
-from app.model import load_model
 from app.predict import predict, predict_and_explain
+from model.load_model import MODEL_PATH, load_model
 
-
-MODEL_PATH = Path("artifacts/model.joblib")
 
 @pytest.mark.skipif(not MODEL_PATH.exists(), reason="Model artifact missing.")
 def test_predict_returns_expected_fields_ham():

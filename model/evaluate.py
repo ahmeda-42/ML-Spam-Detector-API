@@ -1,20 +1,9 @@
-from pathlib import Path
-from urllib.request import urlopen
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-import joblib
 from dataset import download_dataset, load_dataset
-
-
-MODEL_PATH = Path("artifacts/model.joblib")
-
+from load_model import load_model
 
 def main():
-    if not MODEL_PATH.exists():
-        raise FileNotFoundError(
-            "Model not found. Train it first: python model/train.py"
-        )
-
     # Download dataset and get the path
     dataset_path = download_dataset()
 
@@ -31,7 +20,7 @@ def main():
     )
 
     # Load model
-    model = joblib.load(MODEL_PATH)
+    model = load_model()
 
     # Evaluate/Test model on testing set
     Y_pred = model.predict(X_test)

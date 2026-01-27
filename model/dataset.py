@@ -11,7 +11,6 @@ DATASET_URL = (
 )
 DATASET_FILE = "SMSSpamCollection"
 DATA_DIR = Path("data")
-MODEL_PATH = Path("artifacts/model.joblib")
 
 
 def download_dataset():

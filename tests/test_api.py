@@ -1,10 +1,7 @@
-from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
-
-
-MODEL_PATH = Path("artifacts/model.joblib")
+from model.load_model import MODEL_PATH
 
 
 @pytest.mark.skipif(not MODEL_PATH.exists(), reason="Model artifact missing.")
