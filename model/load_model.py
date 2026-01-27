@@ -1,7 +1,8 @@
 import joblib
 from pathlib import Path
+from model.train import MODEL_OUT
 
-MODEL_PATH = Path("artifacts/model.joblib")
+MODEL_PATH = Path(MODEL_OUT)
 
 def load_model():
     if not MODEL_PATH.exists():

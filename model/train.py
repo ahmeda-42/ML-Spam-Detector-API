@@ -7,6 +7,7 @@ from sklearn.pipeline import Pipeline
 import joblib
 from dataset import download_dataset, load_dataset
 
+MODEL_OUT = "artifacts/model.joblib"
 
 def main():
     # Download dataset and get the path
@@ -34,9 +35,9 @@ def main():
     model.fit(X_train, Y_train)
 
     # Save model
-    joblib.dump(model, "artifacts/model.joblib")
+    joblib.dump(model, MODEL_OUT)
 
-    print("Model trained and saved to artifacts/model.joblib.")
+    print(f"Model trained and saved to {MODEL_OUT}.")
 
 if __name__ == "__main__":
     main()
