@@ -1,6 +1,9 @@
 import joblib
 from pathlib import Path
-from model.train import MODEL_OUT
+try:
+    from model.train import MODEL_OUT
+except ModuleNotFoundError:
+    from train import MODEL_OUT
 
 MODEL_PATH = Path(MODEL_OUT)
 

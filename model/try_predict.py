@@ -1,4 +1,7 @@
-from model.predict import predict, predict_and_explain
+try:
+    from model.predict import predict, predict_and_explain
+except ModuleNotFoundError:
+    from predict import predict, predict_and_explain
 
 MESSAGES = [
     "Win free money now",

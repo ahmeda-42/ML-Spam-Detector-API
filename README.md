@@ -66,7 +66,7 @@ Why? (Percentages show relative contributions of words to the model's decision, 
 • "phone" increased spam likelihood by 20.01%
 ```
 
-## Project Layout
+## Project Structure
 
 ``` bash
 ML-Spam-Detector-API/
@@ -76,9 +76,9 @@ ML-Spam-Detector-API/
 ├── model/                  # ML model training & evaluation
 │   ├── dataset.py          # Dataset download + loading helpers
 │   ├── train.py            # Trains/saves TF-IDF + Logistic Regression model
-│   ├── load_model.py       # Helper function to load the model
 │   ├── evaluate.py         # Evaluates the saved model on the test split
 │   ├── predict.py          # Prediction + explanation helpers
+│   ├── load_model.py       # Helper function to load the model
 │   └── try_predict.py      # Example batch predictions using the saved model
 ├── utils/                  # CLI utilities
 │   ├── call_api.py         # Simple interactive API CLI client.
@@ -137,8 +137,7 @@ trains the model, and saves it to `artifacts/model.joblib`.
 ```bash
 python model/evaluate.py
 ```
-This loads the saved model and reports the confusion matrix and
-classification report using the held-out test split.
+Evaluates on the held-out test split and prints the classification report and confusion matrix.
 
 
 ### 4. Run the API
@@ -179,9 +178,9 @@ Type messages directly into the terminal to see predictions and explanations.
 
 Note: Example responses for both variants were shown above.
 
-## Running Tests
+## Testing
 
-To try out the pytests, run:
+Run the full test suite:
 ```bash
 pytest
 ```

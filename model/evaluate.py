@@ -1,7 +1,11 @@
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-from model.dataset import download_dataset, load_dataset
-from model.load_model import load_model
+try:
+    from model.dataset import download_dataset, load_dataset
+    from model.load_model import load_model
+except ModuleNotFoundError:
+    from dataset import download_dataset, load_dataset
+    from load_model import load_model
 
 def main():
     # Download dataset and get the path
@@ -24,10 +28,11 @@ def main():
 
     # Evaluate/Test model on testing set
     Y_pred = model.predict(X_test)
-    print("Confusion matrix:")
-    print(confusion_matrix(Y_test, Y_pred))
-    print("\nClassification report:")
+
+    print("Classification Report:")
     print(classification_report(Y_test, Y_pred, digits=4))
+    print("\nConfusion Matrix:")
+    print(confusion_matrix(Y_test, Y_pred))
 
 
 if __name__ == "__main__":

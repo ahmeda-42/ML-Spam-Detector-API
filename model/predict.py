@@ -1,5 +1,8 @@
 import numpy as np
-from model.load_model import load_model
+try:
+    from model.load_model import load_model
+except ModuleNotFoundError:
+    from load_model import load_model
 
 def predict(message):
     model = load_model()

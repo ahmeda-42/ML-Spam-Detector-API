@@ -3,7 +3,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import joblib
-from model.dataset import download_dataset, load_dataset
+try:
+    from model.dataset import download_dataset, load_dataset
+except ModuleNotFoundError:
+    from dataset import download_dataset, load_dataset
 
 MODEL_OUT = "artifacts/model.joblib"
 
