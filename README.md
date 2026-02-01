@@ -154,6 +154,8 @@ curl -X POST http://127.0.0.1:8000/predict \
   -d '{"message": "Free entry in 2 a wkly comp"}'
 ```
 
+Note: Instead of running step 4 locally, you can run the service via the Docker section below.
+
 Response fields:
 - `message`: original input
 - `prediction`: `spam` or `not_spam`
@@ -178,17 +180,6 @@ Type messages directly into the terminal to see predictions and explanations.
 
 Note: Example responses for both variants were shown above.
 
-## Testing
-
-Run the full test suite:
-```bash
-pytest
-```
-Tests cover:
-- Model loading
-- Prediction correctness
-- API endpoint behavior
-
 ## Docker
 
 Build the image (make sure `artifacts/model.joblib` exists first):
@@ -202,3 +193,14 @@ Run the API container:
 ```bash
 docker run --rm -p 8000:8000 ml-spam-detector
 ```
+
+## Testing
+
+Run the full test suite:
+```bash
+pytest
+```
+Tests cover:
+- Model loading
+- Prediction correctness
+- API endpoint behavior
