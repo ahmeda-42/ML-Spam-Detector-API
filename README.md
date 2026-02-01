@@ -77,7 +77,7 @@ ML-Spam-Detector-API/
 │   ├── dataset.py          # Dataset download + loading helpers
 │   ├── train.py            # Trains/saves TF-IDF + Logistic Regression model
 │   ├── evaluate.py         # Evaluates the saved model on the test split
-│   ├── predict.py          # Prediction + explanation helpers
+│   ├── predict.py          # Prediction + explanation helpers (used by API)
 │   ├── load_model.py       # Helper function to load the model
 │   └── try_predict.py      # Example batch predictions using the saved model
 ├── utils/                  # CLI utilities
@@ -164,7 +164,7 @@ Note: Instead of running step 4 locally, you can run the service via the Docker 
 
 ### 5. Test the API from the CLI
 
-After starting the API, in a seperate terminal run:
+After starting the API, in a separate terminal run:
 
 ```bash
 python utils/call_api.py
